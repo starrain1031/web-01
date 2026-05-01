@@ -21,4 +21,6 @@ public class Emp {
     private Integer deptId;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
+
+    private String deptName;
 }
