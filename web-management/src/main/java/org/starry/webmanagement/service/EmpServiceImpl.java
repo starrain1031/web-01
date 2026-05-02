@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.starry.webmanagement.mapper.EmpExprMapper;
 import org.starry.webmanagement.mapper.EmpMapper;
 import org.starry.webmanagement.pojo.Emp;
 import org.starry.webmanagement.pojo.EmpExpr;
@@ -20,7 +21,8 @@ public class EmpServiceImpl implements EmpService{
     @Autowired
     private EmpMapper empMapper;
 
-    private PageResult pageResult;
+    @Autowired
+    private EmpExprMapper empExprMapper;
 
     @Override
     public List<Emp> findAll() {
@@ -47,21 +49,34 @@ public class EmpServiceImpl implements EmpService{
         return new PageResult<>(p.getTotal(),p.getResult());
     }
 
+//    @Override
+//    public boolean save(Emp emp) {
+//        emp.setCreateTime(LocalDateTime.now());
+//        emp.setUpdateTime(LocalDateTime.now());
+//        empMapper.save(emp);
+//        EmpQueryParam empQueryParam = new EmpQueryParam();
+//        empQueryParam.setName(emp.getName());
+//        List<Emp> rows = empMapper.list(empQueryParam);
+//        Integer empId = rows.get(0).getId();
+//        List<EmpExpr> exprList = emp.getExprList();
+//        if (!CollectionUtils.isEmpty(exprList)) {
+//            exprList.forEach(empExpr -> {
+//                empExpr.setEmpId(empId);
+//                empMapper.saveExpr(empExpr);
+//            });
+//        }
+//        return true;
+//    }
+
     @Override
     public boolean save(Emp emp) {
         emp.setCreateTime(LocalDateTime.now());
         emp.setUpdateTime(LocalDateTime.now());
         empMapper.save(emp);
-        EmpQueryParam empQueryParam = new EmpQueryParam();
-        empQueryParam.setName(emp.getName());
-        List<Emp> rows = empMapper.list(empQueryParam);
-        Integer empId = rows.get(0).getId();
         List<EmpExpr> exprList = emp.getExprList();
+        exprList.forEach(empExpr -> empExpr.setEmpId(emp.getId()));
         if (!CollectionUtils.isEmpty(exprList)) {
-            exprList.forEach(empExpr -> {
-                empExpr.setEmpId(empId);
-                empMapper.saveExpr(empExpr);
-            });
+            empExprMapper.insertBatch(exprList);
         }
         return true;
     }

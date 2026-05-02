@@ -23,9 +23,9 @@
             values(#{username}, #{name}, #{gender}, #{phone}, #{job}, #{salary}, #{image}, #{entryDate}, #{deptId},
                    #{createTime}, #{updateTime})
     </insert>
-    <insert id="saveExpr">
-        insert into emp_expr(emp_id, begin, end, company, job)
-        values(#{empId}, #{begin}, #{end}, #{company}, #{job})
-    </insert>
+<!--    <insert id="saveExpr">-->
+<!--        insert into emp_expr(emp_id, begin, end, company, job)-->
+<!--        values(#{empId}, #{begin}, #{end}, #{company}, #{job})-->
+<!--    </insert>-->
 
 </mapper>
