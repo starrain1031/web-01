@@ -5,8 +5,27 @@
 <mapper namespace="org.starry.webmanagement.mapper.EmpMapper">
     <select id="list" resultType="org.starry.webmanagement.pojo.Emp">
         select e.*, d.name deptName from emp as e left join dept as d on e.dept_id = d.id
-        where e.name like concat('%',#{name},'%')
-          and e.gender = #{gender}
-          and e.entry_date between #{begin} and #{end}
+        <where>
+            <if test="name != null and name != ''">
+                e.name like concat('%', #{name}, '%')
+            </if>
+            <if test="gender != null">
+                and e.gender = #{gender}
+            </if>
+            <if test="begin != null and end != null">
+                and e.entry_date between #{begin} and #{end}
+            </if>
+        </where>
+        order by e.update_time desc
     </select>
+    <insert id="save">
+            insert into emp(username, name, gender, phone, job, salary, image, entry_date, dept_id, create_time, update_time)
+            values(#{username}, #{name}, #{gender}, #{phone}, #{job}, #{salary}, #{image}, #{entryDate}, #{deptId},
+                   #{createTime}, #{updateTime})
+    </insert>
+    <insert id="saveExpr">
+        insert into emp_expr(emp_id, begin, end, company, job)
+        values(#{empId}, #{begin}, #{end}, #{company}, #{job})
+    </insert>
+
 </mapper>

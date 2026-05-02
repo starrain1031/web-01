@@ -23,4 +23,5 @@ public class Emp {
     private LocalDateTime updateTime;
 
     private String deptName;
+    private List<EmpExpr> exprList;
 }

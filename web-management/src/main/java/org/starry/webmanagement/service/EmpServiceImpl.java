@@ -4,11 +4,15 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.starry.webmanagement.mapper.EmpMapper;
 import org.starry.webmanagement.pojo.Emp;
+import org.starry.webmanagement.pojo.EmpExpr;
+import org.starry.webmanagement.pojo.EmpQueryParam;
 import org.starry.webmanagement.pojo.PageResult;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -35,12 +39,31 @@ public class EmpServiceImpl implements EmpService{
 //        return pageResult;
 //    }
     @Override
-    public PageResult<Emp> page(Integer page, Integer pageSize, String name, Integer gender,
-                                LocalDate begin, LocalDate end) {
-        PageHelper.startPage(page, pageSize);
+    public PageResult<Emp> page(EmpQueryParam empQueryParam) {
+        PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
 
-        List<Emp> rows = empMapper.list(name, gender, begin, end);
+        List<Emp> rows = empMapper.list(empQueryParam);
         Page<Emp> p = (Page<Emp>) rows;
         return new PageResult<>(p.getTotal(),p.getResult());
     }
+
+    @Override
+    public boolean save(Emp emp) {
+        emp.setCreateTime(LocalDateTime.now());
+        emp.setUpdateTime(LocalDateTime.now());
+        empMapper.save(emp);
+        EmpQueryParam empQueryParam = new EmpQueryParam();
+        empQueryParam.setName(emp.getName());
+        Page<Emp> p = (Page<Emp>) empMapper.list(empQueryParam);
+        Integer empId = p.getResult().get(0).getId();
+        List<EmpExpr> exprList = emp.getExprList();
+        if (!CollectionUtils.isEmpty(exprList)) {
+            exprList.forEach(empExpr -> {
+                empExpr.setEmpId(empId);
+                empMapper.saveExpr(empExpr);
+            });
+        }
+        return true;
+    }
+
 }

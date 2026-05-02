@@ -3,6 +3,8 @@ package org.starry.webmanagement.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.starry.webmanagement.pojo.Emp;
+import org.starry.webmanagement.pojo.EmpExpr;
+import org.starry.webmanagement.pojo.EmpQueryParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,5 +20,9 @@ public interface EmpMapper {
 //    public Long count();
 
 
-    public List<Emp> list(String name, Integer gender, LocalDate begin, LocalDate end);
+    List<Emp> list(EmpQueryParam empQueryParam);
+
+    boolean save(Emp emp);
+
+    void saveExpr(EmpExpr empExpr);
 }
