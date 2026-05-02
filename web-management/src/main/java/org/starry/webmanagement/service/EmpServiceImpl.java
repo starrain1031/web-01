@@ -54,8 +54,8 @@ public class EmpServiceImpl implements EmpService{
         empMapper.save(emp);
         EmpQueryParam empQueryParam = new EmpQueryParam();
         empQueryParam.setName(emp.getName());
-        Page<Emp> p = (Page<Emp>) empMapper.list(empQueryParam);
-        Integer empId = p.getResult().get(0).getId();
+        List<Emp> rows = empMapper.list(empQueryParam);
+        Integer empId = rows.get(0).getId();
         List<EmpExpr> exprList = emp.getExprList();
         if (!CollectionUtils.isEmpty(exprList)) {
             exprList.forEach(empExpr -> {
