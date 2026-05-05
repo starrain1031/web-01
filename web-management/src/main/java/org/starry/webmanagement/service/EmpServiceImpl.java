@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.starry.webmanagement.mapper.EmpExprMapper;
 import org.starry.webmanagement.mapper.EmpMapper;
@@ -12,7 +13,6 @@ import org.starry.webmanagement.pojo.EmpExpr;
 import org.starry.webmanagement.pojo.EmpQueryParam;
 import org.starry.webmanagement.pojo.PageResult;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -68,6 +68,7 @@ public class EmpServiceImpl implements EmpService{
 //        return true;
 //    }
 
+    @Transactional(rollbackFor = {Exception.class})
     @Override
     public boolean save(Emp emp) {
         emp.setCreateTime(LocalDateTime.now());
