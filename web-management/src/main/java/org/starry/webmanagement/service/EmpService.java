@@ -12,4 +12,10 @@ public interface EmpService {
     PageResult<Emp> page(EmpQueryParam empQueryParam);
 
     boolean save(Emp emp);
+
+    boolean delete(List<Integer> ids);
+
+    Emp getEmpById(Integer empId);
+
+    boolean update(Emp emp);
 }

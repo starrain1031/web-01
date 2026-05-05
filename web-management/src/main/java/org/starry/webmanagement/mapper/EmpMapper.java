@@ -2,6 +2,8 @@ package org.starry.webmanagement.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.starry.webmanagement.pojo.Emp;
 import org.starry.webmanagement.pojo.EmpQueryParam;
 
@@ -22,6 +24,12 @@ public interface EmpMapper {
 
     @Options(useGeneratedKeys = true, keyProperty = "id")
     boolean save(Emp emp);
+
+    void deleteByIds(List<Integer> ids);
+
+    Emp getEmpById(Integer empId);
+
+    boolean update(Emp emp);
 
 //    void saveExpr(EmpExpr empExpr);
 }

@@ -1,5 +1,6 @@
 package org.starry.webmanagement.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -19,7 +20,10 @@ public class Emp {
     private String image;
     private LocalDate entryDate;
     private Integer deptId;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     private String deptName;

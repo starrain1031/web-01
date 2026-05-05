@@ -14,6 +14,7 @@ import org.starry.webmanagement.pojo.EmpQueryParam;
 import org.starry.webmanagement.pojo.PageResult;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -82,4 +83,33 @@ public class EmpServiceImpl implements EmpService{
         return true;
     }
 
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public boolean delete(List<Integer> ids) {
+        empMapper.deleteByIds(ids);
+        empExprMapper.deleteByEmpIds(ids);
+        return true;
+    }
+
+    @Override
+    public Emp getEmpById(Integer empId) {
+        return empMapper.getEmpById(empId);
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public boolean update(Emp emp) {
+        emp.setUpdateTime(LocalDateTime.now());
+        empMapper.update(emp);
+
+        Integer empId = emp.getId();
+        empExprMapper.deleteByEmpIds(Arrays.asList(empId));
+
+        List<EmpExpr> exprList = emp.getExprList();
+        if(!CollectionUtils.isEmpty(exprList)){
+            exprList.forEach(empExpr -> empExpr.setEmpId(empId));
+            empExprMapper.insertBatch(exprList);
+        }
+        return true;
+    }
 }

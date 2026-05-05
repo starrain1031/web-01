@@ -1,7 +1,6 @@
 package org.starry.webmanagement.utils;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -16,6 +15,7 @@ import com.qcloud.cos.model.ObjectMetadata;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.model.PutObjectResult;
 import com.qcloud.cos.region.Region;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,8 +24,13 @@ public class TencentCOSOperator {
     private static String secretKey = System.getenv("SECRETKEY");
     //    private static String bucketName = System.getenv("BUCKET_NAME");
     //    private static String region = System.getenv("REGION");
-    private static String bucketName = "demo02-1315182495";
-    private static String region = "ap-shanghai";
+
+    @Value("${tencent.cos.endpoint}")
+    private static String endpoint;
+    @Value("${tencent.cos.bucketName}")
+    private static String bucketName;
+    @Value("${tencent.cos.region}")
+    private static String region;
 
 
 
@@ -56,9 +61,8 @@ public class TencentCOSOperator {
 
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, new ByteArrayInputStream(content),metadata);
         try {
-
             PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
-            return "https://" + bucketName + ".cos." + region + ".myqcloud.com/" + key;
+            return "https://" + bucketName + ".cos." + region + endpoint + key;
             //System.out.println(putObjectResult.getRequestId());
         } catch (CosServiceException cse) {
             cse.printStackTrace();
