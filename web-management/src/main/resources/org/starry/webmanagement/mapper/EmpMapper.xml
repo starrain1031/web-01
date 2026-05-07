@@ -35,8 +35,20 @@
     </delete>
 
     <update id="update">
-        update emp set username = #{username}, name = #{name}, phone = #{phone}, gender = #{gender}, job = #{job},
-                       salary = #{salary}, entry_date = #{entryDate}, dept_id = #{deptId}, update_time = #{updateTime} where id = #{id}
+        update emp
+            <set>
+                <if test="username != null and username != ''">username = #{username},</if>
+                <if test="password != null and password != ''">password = #{password},</if>
+                <if test="name != null and name != ''">name = #{name},</if>
+                <if test="gender != null">gender = #{gender},</if>
+                <if test="phone != null and phone != ''">phone = #{phone},</if>
+                <if test="job != null">job = #{job},</if>
+                <if test="salary != null">salary = #{salary},</if>
+                <if test="image != null and image != ''">image = #{image},</if>
+                <if test="entryDate != null">entry_date = #{entryDate},</if>
+                <if test="deptId != null">dept_id = #{deptId},</if>
+                <if test="updateTime != null">update_time = #{updateTime},</if>
+            </set>
     </update>
 
     <resultMap id="empResultMap" type="org.starry.webmanagement.pojo.Emp">
@@ -75,5 +87,34 @@
         from emp e left join emp_expr ee on e.id = ee.emp_id
         where e.id = #{id}
     </select>
+    <select id="countEmpJobData" resultType="java.util.Map">
+        select
+        (case job when 1 then 'A'
+            when 2 then 'B'
+            when 3 then 'C'
+            when 4 then 'D'
+            when 5 then 'E'
+            else 'Others' end) pos,
+    count(*) total
+    from emp group by job
+    order by total
+    </select>
+
+    <select id="countEmpGenderData" resultType="java.util.Map">
+        select
+            (case when gender=1 then 'Male'
+                when gender=2 then 'Female' end) name,
+            count(*) value
+        from emp group by gender
+        order by value
+    </select>
+
+<!--    <select id="countEmpGenderData" resultType="java.util.Map">-->
+<!--        select-->
+<!--            if(gender=1, 'Male', 'Female') name,-->
+<!--            count(*) value-->
+<!--        from emp group by gender-->
+<!--        order by value-->
+<!--    </select>-->
 
 </mapper>

@@ -1,13 +1,11 @@
 package org.starry.webmanagement.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.starry.webmanagement.pojo.Emp;
 import org.starry.webmanagement.pojo.EmpQueryParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface EmpMapper {
@@ -32,4 +30,9 @@ public interface EmpMapper {
     boolean update(Emp emp);
 
 //    void saveExpr(EmpExpr empExpr);
+    @MapKey("pos")
+    List<Map<String, Object>> countEmpJobData();
+
+    @MapKey("name")
+    List<Map<String, Object>> countEmpGenderData();
 }

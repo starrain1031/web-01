@@ -25,12 +25,6 @@ public class EmpServiceImpl implements EmpService{
     @Autowired
     private EmpExprMapper empExprMapper;
 
-    @Override
-    public List<Emp> findAll() {
-
-        return List.of();
-    }
-
     //    @Override
 //    public PageResult<Emp> page(Integer page, Integer pageSize) {
 //        Long result = empMapper.count();
