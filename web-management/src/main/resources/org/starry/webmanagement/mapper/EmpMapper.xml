@@ -109,7 +109,13 @@
         order by value
     </select>
 
-<!--    <select id="countEmpGenderData" resultType="java.util.Map">-->
+    <select id="findAll" resultType="org.starry.webmanagement.pojo.Emp">
+        select e.*, d.name deptName
+        from emp as e left join dept as d on e.dept_id = d.id
+        order by e.update_time desc
+    </select>
+
+    <!--    <select id="countEmpGenderData" resultType="java.util.Map">-->
 <!--        select-->
 <!--            if(gender=1, 'Male', 'Female') name,-->
 <!--            count(*) value-->

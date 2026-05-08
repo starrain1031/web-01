@@ -106,4 +106,9 @@ public class EmpServiceImpl implements EmpService{
         }
         return true;
     }
+
+    @Override
+    public List<Emp> findAll() {
+        return empMapper.findAll();
+    }
 }

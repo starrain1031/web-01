@@ -11,4 +11,5 @@ public interface ReportService {
     JobOption countEmpJobData();
 
     List<Map<String, Object>> countEmpGenderData();
+
 }

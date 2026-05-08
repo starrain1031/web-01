@@ -49,4 +49,11 @@ public class EmpController {
         log.info("update department {}", emp);
         return empService.update(emp) ? Result.success() : Result.error("Failed to update" + emp.getName());
     }
+
+    @GetMapping("/list")
+    public Result list() {
+        log.info("query all employees");
+        List<Emp> empList= empService.findAll();
+        return Result.success(empList);
+    }
 }
