@@ -1,4 +1,4 @@
-package org.starry.webmanagement.service;
+package org.starry.webmanagement.service.Impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.starry.webmanagement.mapper.ClazzMapper;
 import org.starry.webmanagement.pojo.Clazz;
 import org.starry.webmanagement.pojo.PageResult;
+import org.starry.webmanagement.service.ClazzService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

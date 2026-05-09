@@ -1,4 +1,4 @@
-package org.starry.webmanagement.service;
+package org.starry.webmanagement.service.Impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -12,13 +12,14 @@ import org.starry.webmanagement.pojo.Emp;
 import org.starry.webmanagement.pojo.EmpExpr;
 import org.starry.webmanagement.pojo.EmpQueryParam;
 import org.starry.webmanagement.pojo.PageResult;
+import org.starry.webmanagement.service.EmpService;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class EmpServiceImpl implements EmpService{
+public class EmpServiceImpl implements EmpService {
     @Autowired
     private EmpMapper empMapper;
 

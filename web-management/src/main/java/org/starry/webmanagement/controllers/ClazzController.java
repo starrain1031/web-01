@@ -2,7 +2,6 @@ package org.starry.webmanagement.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.starry.webmanagement.pojo.Clazz;
-import org.starry.webmanagement.pojo.Emp;
 import org.starry.webmanagement.pojo.PageResult;
 import org.starry.webmanagement.pojo.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +27,7 @@ public class ClazzController {
                        @RequestParam(defaultValue = "1") int page,
                        @RequestParam(defaultValue = "10") int pageSize) {
         log.info("page query {}", name);
-        PageResult<Clazz> pageResult= clazzService.page(name, begin, end, page, pageSize);
+        PageResult<Clazz> pageResult = clazzService.page(name, begin, end, page, pageSize);
         return Result.success(pageResult);
     }
 

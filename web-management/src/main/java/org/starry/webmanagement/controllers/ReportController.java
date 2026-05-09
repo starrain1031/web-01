@@ -31,4 +31,14 @@ public class ReportController {
         log.info("report emp gender data");
         return Result.success(reportService.countEmpGenderData());
     }
+    @GetMapping("/studentDegreeData")
+    public Result reportStudentDegree() {
+        log.info("report student degree data");
+        return Result.success(reportService.getStudentDegreeData());
+    }
+    @GetMapping("/studentCountData")
+    public Result reportStudentCount() {
+        log.info("report student count data");
+        return Result.success(reportService.getStudentCountData());
+    }
 }
