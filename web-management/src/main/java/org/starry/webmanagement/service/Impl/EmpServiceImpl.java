@@ -2,22 +2,23 @@ package org.starry.webmanagement.service.Impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.starry.webmanagement.mapper.EmpExprMapper;
 import org.starry.webmanagement.mapper.EmpMapper;
-import org.starry.webmanagement.pojo.Emp;
-import org.starry.webmanagement.pojo.EmpExpr;
-import org.starry.webmanagement.pojo.EmpQueryParam;
-import org.starry.webmanagement.pojo.PageResult;
+import org.starry.webmanagement.pojo.*;
 import org.starry.webmanagement.service.EmpService;
+import org.starry.webmanagement.utils.JwtUtils;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Service
 public class EmpServiceImpl implements EmpService {
     @Autowired
@@ -111,5 +112,16 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public List<Emp> findAll() {
         return empMapper.findAll();
+    }
+
+    @Override
+    public LoginInfo login(Emp emp) {
+        Emp e = empMapper.selectByUsernameAndPassword(emp);
+        if(e != null){
+            log.info("Login success: {}", e);
+            String jwt = JwtUtils.generateJwt(Map.of("id", e.getId(), "username", e.getUsername()));
+            return new LoginInfo(e.getId(), e.getUsername(), e.getName(), jwt);
+        }
+        return null;
     }
 }
