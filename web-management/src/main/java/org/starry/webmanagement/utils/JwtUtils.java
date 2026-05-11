@@ -10,12 +10,12 @@ import java.util.Map;
 
 public class JwtUtils {
 
-    private static String secret = "starry-web-management-secret-key-123456";
-    private static Long expire = 43200000L;
-    private static SecretKey signKey;
+    private static final String secret = "starry-web-management-secret-key-123456";
+    private static final Long expire = 43200000L;
 
-    public static String generateJwt(Map<String,Object> claims){
-        signKey = Keys.hmacShaKeyFor(secret.getBytes());
+    private static final SecretKey signKey = Keys.hmacShaKeyFor(secret.getBytes());
+
+    public static String generateJwt(Map<String, Object> claims) {
         return Jwts.builder()
                 .claims(claims)
                 .signWith(signKey)
@@ -25,8 +25,10 @@ public class JwtUtils {
                 .compact();
     }
 
-    public static Claims parseJWT(String jwt){
-        return Jwts.parser().verifyWith(signKey).build()
+    public static Claims parseJWT(String jwt) {
+        return Jwts.parser()
+                .verifyWith(signKey)
+                .build()
                 .parseSignedClaims(jwt)
                 .getPayload();
     }

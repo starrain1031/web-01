@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @Slf4j
 @WebFilter("/*")
-public class DemoFilter implements Filter {
+public class TokenFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
@@ -35,9 +35,8 @@ public class DemoFilter implements Filter {
                 Claims payload = JwtUtils.parseJWT(token);
                 chain.doFilter(request, response);
             } catch (Exception e){
-                log.info("token is invalid");
+                log.info("token is invalid: {}", e.getMessage());
                 httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                throw new RuntimeException(e);
             }
         }
         else{
