@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.starry.webmanagement.utils.CurrentHolder;
 import org.starry.webmanagement.utils.JwtUtils;
 
 import java.io.IOException;
@@ -33,7 +34,10 @@ public class TokenFilter implements Filter {
         if (token != null && !token.isEmpty()){
             try {
                 Claims payload = JwtUtils.parseJWT(token);
+                Integer empId = Integer.valueOf(payload.get("id").toString());
+                CurrentHolder.setCurrentId(empId);
                 chain.doFilter(request, response);
+                CurrentHolder.remove();
             } catch (Exception e){
                 log.info("token is invalid: {}", e.getMessage());
                 httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
