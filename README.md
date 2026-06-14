@@ -112,7 +112,7 @@ For production use, avoid committing real database passwords, JWT secrets, or cl
 Enter the Maven module directory:
 
 ```powershell
-cd E:\JavaStudy\web-01\web-management
+cd web-management
 ```
 
 Compile the project without running tests:
