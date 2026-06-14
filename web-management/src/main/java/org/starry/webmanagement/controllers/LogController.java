@@ -14,6 +14,9 @@ import org.starry.webmanagement.pojo.Result;
 import org.starry.webmanagement.service.LogService;
 
 
+/**
+ * REST controller for querying operation logs.
+ */
 @Slf4j
 @RequestMapping("/log")
 @RestController
@@ -22,6 +25,9 @@ public class LogController {
     @Autowired
     private LogService logService;
 
+    /**
+     * Queries operation logs with pagination.
+     */
     @GetMapping("/page")
     public Result page(@RequestParam(defaultValue = "1") int page,
                        @RequestParam(defaultValue = "10") int pageSize) {

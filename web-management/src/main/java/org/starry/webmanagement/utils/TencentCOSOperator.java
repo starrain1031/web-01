@@ -18,6 +18,9 @@ import com.qcloud.cos.region.Region;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * Utility component for uploading files to Tencent Cloud Object Storage.
+ */
 @Component
 public class TencentCOSOperator {
     private static String secretId = System.getenv("SECRETID");
@@ -26,15 +29,15 @@ public class TencentCOSOperator {
     //    private static String region = System.getenv("REGION");
 
     @Value("${tencent.cos.endpoint}")
-    private static String endpoint;
+    private String endpoint;
     @Value("${tencent.cos.bucketName}")
-    private static String bucketName;
+    private String bucketName;
     @Value("${tencent.cos.region}")
-    private static String region;
+    private String region;
 
 
 
-    private static COSClient createCli() {
+    private COSClient createCli() {
      // 初始化用户身份信息(secretId, secretKey)
         COSCredentials cred = new BasicCOSCredentials(secretId,secretKey);
         // 设置 bucket 的区域, COS 地域的简称请参照 https://cloud.tencent.com/document/product/436/6224
@@ -43,6 +46,9 @@ public class TencentCOSOperator {
         return new COSClient(cred, clientConfig);
     }
 
+    /**
+     * Uploads file content to Tencent COS and returns the generated object URL.
+     */
     public String putLocalFile(byte[] content, String originalFilename) {
 
 
@@ -62,7 +68,7 @@ public class TencentCOSOperator {
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, new ByteArrayInputStream(content),metadata);
         try {
             PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
-            return "https://" + bucketName + ".cos." + region + endpoint + key;
+            return "https://" + bucketName + ".cos." + region + "." + endpoint + "/" + key;
             //System.out.println(putObjectResult.getRequestId());
         } catch (CosServiceException cse) {
             cse.printStackTrace();

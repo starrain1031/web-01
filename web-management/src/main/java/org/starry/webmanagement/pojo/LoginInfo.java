@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Response object returned after a successful employee login.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

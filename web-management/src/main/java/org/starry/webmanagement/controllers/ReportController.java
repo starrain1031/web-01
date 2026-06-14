@@ -11,6 +11,9 @@ import org.starry.webmanagement.pojo.Result;
 import org.starry.webmanagement.service.ReportService;
 
 
+/**
+ * REST controller for report and statistics APIs.
+ */
 @Slf4j
 @RequestMapping("/report")
 @RestController

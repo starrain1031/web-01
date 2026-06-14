@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * View object that represents employee job distribution data for reports.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -10,6 +10,9 @@ import org.starry.webmanagement.pojo.LoginInfo;
 import org.starry.webmanagement.pojo.Result;
 import org.starry.webmanagement.service.EmpService;
 
+/**
+ * REST controller for employee authentication.
+ */
 @Slf4j
 @RestController
 public class LoginController {
@@ -19,6 +22,9 @@ public class LoginController {
         this.empService = empService;
     }
 
+    /**
+     * Authenticates an employee and returns login information with a JWT token.
+     */
     @PostMapping("/login")
     public Result login(@RequestBody Emp emp){
         log.info("Login: {}", emp);

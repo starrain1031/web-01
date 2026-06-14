@@ -12,6 +12,9 @@ import org.starry.webmanagement.service.ClazzService;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * REST controller for class management APIs.
+ */
 @Slf4j
 @RequestMapping("/clazzs")
 @RestController
@@ -20,6 +23,9 @@ public class ClazzController {
     @Autowired
     private ClazzService clazzService;
 
+    /**
+     * Queries classes with pagination and optional filters.
+     */
     @GetMapping
     public Result page(String name,
                        @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
@@ -31,6 +37,9 @@ public class ClazzController {
         return Result.success(pageResult);
     }
 
+    /**
+     * Creates a new class record.
+     */
     @PostMapping
     public Result save(@RequestBody Clazz clazz) {
         log.info("Add class: {}", clazz);
@@ -45,6 +54,9 @@ public class ClazzController {
         return Result.success(clazz);
     }
 
+    /**
+     * Updates an existing class record.
+     */
     @PutMapping
     public Result update(@RequestBody Clazz clazz) {
         log.info("Update class: {}", clazz);
@@ -52,6 +64,9 @@ public class ClazzController {
         return Result.success();
     }
 
+    /**
+     * Deletes a class by id.
+     */
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         log.info("Delete Class: {}", id);
@@ -59,6 +74,9 @@ public class ClazzController {
         return Result.success();
     }
 
+    /**
+     * Queries all class records.
+     */
     @GetMapping("/list")
     public Result list() {
         log.info("Query all classes");

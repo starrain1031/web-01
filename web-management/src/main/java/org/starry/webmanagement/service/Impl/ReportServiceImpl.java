@@ -12,6 +12,9 @@ import org.starry.webmanagement.service.ReportService;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Default implementation of report and statistics business logic.
+ */
 @Component
 public class ReportServiceImpl implements ReportService {
 
@@ -20,6 +23,9 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private StudentMapper studentMapper;
 
+    /**
+     * Counts employees grouped by job type.
+     */
     @Override
     public JobOption countEmpJobData() {
         List<Map<String, Object>> list = empMapper.countEmpJobData();
@@ -29,6 +35,9 @@ public class ReportServiceImpl implements ReportService {
         return jobOption;
     }
 
+    /**
+     * Counts employees grouped by gender.
+     */
     @Override
     public List<Map<String, Object>> countEmpGenderData() {
         return empMapper.countEmpGenderData();

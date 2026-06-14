@@ -7,6 +7,9 @@ import java.time.LocalDate;
 /**
  * working experience
  */
+/**
+ * Employee work experience entity.
+ */
 @Data
 public class EmpExpr {
     private Integer id;

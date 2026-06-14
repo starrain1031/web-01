@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.starry.webmanagement.pojo.Result;
 
+/**
+ * Demo controller for cookie and HTTP session examples.
+ */
 @Slf4j
 @RestController
 public class SessionController {

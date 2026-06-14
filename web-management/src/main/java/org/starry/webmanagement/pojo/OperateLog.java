@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Operation log entity that stores audited backend actions.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -5,6 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
+/**
+ * Query parameter object for employee pagination and filtering.
+ */
 @Data
 public class EmpQueryParam {
     private Integer page = 1;

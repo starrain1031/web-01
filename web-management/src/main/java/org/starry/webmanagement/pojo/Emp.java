@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Employee entity used by employee management and authentication APIs.
+ */
 @Data
 public class Emp {
     private Integer id;

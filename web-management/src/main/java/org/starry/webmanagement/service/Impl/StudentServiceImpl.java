@@ -15,12 +15,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Default implementation of student management business logic.
+ */
 @Slf4j
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper studentMapper;
 
+    /**
+     * Creates a new record.
+     */
     @Override
     public void save(Student student) {
         student.setCreateTime(LocalDateTime.now());
@@ -28,6 +34,9 @@ public class StudentServiceImpl implements StudentService {
         studentMapper.insert(student);
     }
 
+    /**
+     * Queries records with pagination and filters.
+     */
     @Override
     public PageResult<Student> page(String name, Integer degree, Integer clazzId, Integer page, Integer pageSize) {
         PageHelper.startPage(page,pageSize);
@@ -36,22 +45,34 @@ public class StudentServiceImpl implements StudentService {
         return new PageResult<>(p.getTotal(),p.getResult());
     }
 
+    /**
+     * Queries detailed record information by id.
+     */
     @Override
     public Student getInfo(Integer id) {
         return studentMapper.getById(id);
     }
 
+    /**
+     * Updates an existing record.
+     */
     @Override
     public void update(Student student) {
         student.setUpdateTime(LocalDateTime.now());
         studentMapper.update(student);
     }
 
+    /**
+     * Deletes records by id list.
+     */
     @Override
     public void delete(List<Integer> ids) {
         studentMapper.delete(ids);
     }
 
+    /**
+     * Updates student violation count and score.
+     */
     @Override
     public void violationHandle(Integer id, Integer score) {
         studentMapper.violationHandle(id,score);

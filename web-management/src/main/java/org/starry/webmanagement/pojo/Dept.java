@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Department entity used by department management APIs.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

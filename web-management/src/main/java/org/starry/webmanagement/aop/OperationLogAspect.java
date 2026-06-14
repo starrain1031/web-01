@@ -13,6 +13,9 @@ import org.starry.webmanagement.utils.CurrentHolder;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
+/**
+ * Aspect that records operation logs for methods annotated with {@link org.starry.webmanagement.anno.Log}.
+ */
 @Slf4j
 @Aspect
 @Component
@@ -21,6 +24,9 @@ public class OperationLogAspect {
     @Autowired
     private OperateLogMapper operateLogMapper;
 
+    /**
+     * Records request operation details after the annotated method completes successfully.
+     */
     @Around("@annotation(org.starry.webmanagement.anno.Log)")
     public Object logOperation(ProceedingJoinPoint pjp) throws Throwable {
         long start = System.currentTimeMillis();

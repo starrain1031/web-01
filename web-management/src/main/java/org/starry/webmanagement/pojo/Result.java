@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * returns results uniformly
+ * Unified API response wrapper.
  */
 @Data
 public class Result {

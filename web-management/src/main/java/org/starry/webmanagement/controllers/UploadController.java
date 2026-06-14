@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 
+/**
+ * REST controller for file upload APIs.
+ */
 @Slf4j
 @RestController
 public class UploadController {
@@ -17,6 +20,9 @@ public class UploadController {
     @Autowired
     private TencentCOSOperator cosOperator;
 
+    /**
+     * Uploads a multipart file to Tencent COS and returns its public URL.
+     */
     @PostMapping("/upload")
     public Result upload(MultipartFile file) throws Exception {
         log.info("upload: {}", file);

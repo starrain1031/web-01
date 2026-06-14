@@ -11,12 +11,18 @@ import org.starry.webmanagement.service.LogService;
 
 import java.util.List;
 
+/**
+ * Default implementation of operation log query business logic.
+ */
 @Service
 public class LogServiceImpl implements LogService {
 
     @Autowired
     private OperateLogMapper operateLogMapper;
 
+    /**
+     * Queries records with pagination and filters.
+     */
     @Override
     public PageResult<OperateLog> page(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);

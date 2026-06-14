@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Generic pagination response wrapper.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

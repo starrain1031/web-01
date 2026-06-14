@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 
+/**
+ * View object that represents class status count data for reports.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

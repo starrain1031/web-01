@@ -10,6 +10,9 @@ import org.starry.webmanagement.service.DeptService;
 
 import java.util.List;
 
+/**
+ * REST controller for department management APIs.
+ */
 @Slf4j
 @RequestMapping("/depts")
 @RestController
@@ -19,6 +22,9 @@ public class DeptController {
     @Autowired
     private DeptService deptService;
 //    @RequestMapping(value = "/depts", method = RequestMethod.GET)
+    /**
+     * Queries all departments.
+     */
     @GetMapping
     public Result list() {
         log.info("query all departments");
@@ -26,6 +32,9 @@ public class DeptController {
         return Result.success(deptList);
     }
 
+    /**
+     * Deletes a department by id.
+     */
     @Log
     @DeleteMapping
     public Result delete(@RequestParam("id") Integer deptId) {
@@ -34,6 +43,9 @@ public class DeptController {
         return Result.success();
     }
 
+    /**
+     * Creates a new department.
+     */
     @Log
     @PostMapping
     public Result add(@RequestBody Dept dept){
@@ -41,6 +53,9 @@ public class DeptController {
         return deptService.add(dept) ? Result.success() : Result.error("Failed to add" + dept.getName());
     }
 
+    /**
+     * Queries a department by id.
+     */
     @GetMapping("/{id}")
     public Result get(@PathVariable("id") Integer deptId) {
         log.info("query department {}" ,deptId);
@@ -48,6 +63,9 @@ public class DeptController {
         return dept != null ? Result.success(dept) : Result.error("No department " + deptId);
     }
 
+    /**
+     * Updates an existing department.
+     */
     @Log
     @PutMapping
     public Result update(@RequestBody Dept dept){

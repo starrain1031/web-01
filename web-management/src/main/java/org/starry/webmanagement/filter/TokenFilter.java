@@ -11,6 +11,9 @@ import org.starry.webmanagement.utils.JwtUtils;
 
 import java.io.IOException;
 
+/**
+ * Servlet filter that validates JWT tokens and stores the current employee id for the request.
+ */
 @Slf4j
 @WebFilter("/*")
 public class TokenFilter implements Filter {
@@ -19,31 +22,42 @@ public class TokenFilter implements Filter {
         Filter.super.init(filterConfig);
     }
 
+    /**
+     * Validates the request token before allowing protected endpoints to continue.
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         String requestURI = httpServletRequest.getRequestURI();
 
-        if (requestURI.contains("/login")){
+//        if (requestURI.contains("/login")){
+        if ("/login".equals(requestURI)){
             chain.doFilter(request, response);
             return;
         }
 
         String token = httpServletRequest.getHeader("token");
-        if (token != null && !token.isEmpty()){
+        if (token != null && !token.isEmpty()) {
+            Claims payload;
+            Integer empId;
+
             try {
-                Claims payload = JwtUtils.parseJWT(token);
-                Integer empId = Integer.valueOf(payload.get("id").toString());
-                CurrentHolder.setCurrentId(empId);
-                chain.doFilter(request, response);
-                CurrentHolder.remove();
-            } catch (Exception e){
+                payload = JwtUtils.parseJWT(token);
+                empId = Integer.valueOf(payload.get("id").toString());
+            } catch (Exception e) {
                 log.info("token is invalid: {}", e.getMessage());
                 httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
             }
-        }
-        else{
+
+            try {
+                CurrentHolder.setCurrentId(empId);
+                chain.doFilter(request, response);
+            } finally {
+                CurrentHolder.remove();
+            }
+        } else {
             log.info("token is null");
             httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }

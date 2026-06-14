@@ -18,6 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Default implementation of employee management and authentication business logic.
+ */
 @Slf4j
 @Service
 public class EmpServiceImpl implements EmpService {
@@ -37,6 +40,9 @@ public class EmpServiceImpl implements EmpService {
 //        pageResult.setRows(rows);
 //        return pageResult;
 //    }
+    /**
+     * Queries records with pagination and filters.
+     */
     @Override
     public PageResult<Emp> page(EmpQueryParam empQueryParam) {
         PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
@@ -65,6 +71,9 @@ public class EmpServiceImpl implements EmpService {
 //        return true;
 //    }
 
+    /**
+     * Creates a new record.
+     */
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public boolean save(Emp emp) {
@@ -72,13 +81,16 @@ public class EmpServiceImpl implements EmpService {
         emp.setUpdateTime(LocalDateTime.now());
         empMapper.save(emp);
         List<EmpExpr> exprList = emp.getExprList();
-        exprList.forEach(empExpr -> empExpr.setEmpId(emp.getId()));
         if (!CollectionUtils.isEmpty(exprList)) {
+            exprList.forEach(empExpr -> empExpr.setEmpId(emp.getId()));
             empExprMapper.insertBatch(exprList);
         }
         return true;
     }
 
+    /**
+     * Deletes records by id list.
+     */
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public boolean delete(List<Integer> ids) {
@@ -87,11 +99,17 @@ public class EmpServiceImpl implements EmpService {
         return true;
     }
 
+    /**
+     * Queries an employee by id, including work experience data.
+     */
     @Override
     public Emp getEmpById(Integer empId) {
         return empMapper.getEmpById(empId);
     }
 
+    /**
+     * Updates an existing record.
+     */
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public boolean update(Emp emp) {
@@ -109,11 +127,17 @@ public class EmpServiceImpl implements EmpService {
         return true;
     }
 
+    /**
+     * Queries all records.
+     */
     @Override
     public List<Emp> findAll() {
         return empMapper.findAll();
     }
 
+    /**
+     * Authenticates an employee and returns login information.
+     */
     @Override
     public LoginInfo login(Emp emp) {
         Emp e = empMapper.selectByUsernameAndPassword(emp);

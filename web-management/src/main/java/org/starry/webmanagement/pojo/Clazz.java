@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Class entity used by class management APIs.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

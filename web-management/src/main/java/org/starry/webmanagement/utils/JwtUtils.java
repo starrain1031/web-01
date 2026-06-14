@@ -8,6 +8,9 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * Utility methods for generating and parsing JWT authentication tokens.
+ */
 public class JwtUtils {
 
     private static final String secret = "starry-web-management-secret-key-123456";
@@ -15,6 +18,9 @@ public class JwtUtils {
 
     private static final SecretKey signKey = Keys.hmacShaKeyFor(secret.getBytes());
 
+    /**
+     * Generates a signed JWT token from the supplied claims.
+     */
     public static String generateJwt(Map<String, Object> claims) {
         return Jwts.builder()
                 .claims(claims)
@@ -25,6 +31,9 @@ public class JwtUtils {
                 .compact();
     }
 
+    /**
+     * Parses and validates a signed JWT token.
+     */
     public static Claims parseJWT(String jwt) {
         return Jwts.parser()
                 .verifyWith(signKey)

@@ -11,6 +11,9 @@ import org.starry.webmanagement.service.StudentService;
 
 import java.util.List;
 
+/**
+ * REST controller for student management APIs.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/students")
@@ -19,6 +22,9 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    /**
+     * Creates a new student record.
+     */
     @PostMapping
     public Result save(@RequestBody Student student){
         studentService.save(student);
@@ -31,6 +37,9 @@ public class StudentController {
 //        return Result.success();
 //    }
 
+    /**
+     * Queries students with pagination and optional filters.
+     */
     @GetMapping
     public Result page(String name ,
                        Integer degree,
@@ -41,24 +50,36 @@ public class StudentController {
         return Result.success(pageResult);
     }
 
+    /**
+     * Queries a student by id.
+     */
     @GetMapping("/{id}")
     public Result getInfo(@PathVariable Integer id){
         Student student = studentService.getInfo(id);
         return Result.success(student);
     }
 
+    /**
+     * Updates an existing student record.
+     */
     @PutMapping
     public Result update(@RequestBody Student student){
         studentService.update(student);
         return Result.success();
     }
 
+    /**
+     * Deletes students by id list.
+     */
     @DeleteMapping("/{ids}")
     public Result delete(@PathVariable List<Integer> ids){
         studentService.delete(ids);
         return Result.success();
     }
 
+    /**
+     * Records a student violation and adds the violation score.
+     */
     @PutMapping("/violation/{id}/{score}")
     public Result violationHandle(@PathVariable Integer id , @PathVariable Integer score){
         if (score == null || score <= 0) {
