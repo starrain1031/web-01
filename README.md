@@ -249,4 +249,5 @@ The `TokenFilter` validates this token and stores the current employee id in `Cu
 
 ## License
 
-This project is currently for study and practice. Add a license file before publishing it as an open-source project.
+MIT License
+Copyright (c) 2026 Starry
