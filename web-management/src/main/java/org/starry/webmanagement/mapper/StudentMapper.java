@@ -34,11 +34,11 @@ public interface StudentMapper {
      */
     void delete(List<Integer> ids);
 
-    @Update("update stu set violation_count = violation_count + 1 , " +
-            "violation_score = violation_score + #{score} , update_time = now() where id = #{id}")
     /**
      * Updates student violation count and score.
      */
+    @Update("update stu set violation_count = violation_count + 1 , " +
+            "violation_score = violation_score + #{score} , update_time = now() where id = #{id}")
     void violationHandle(Integer id, Integer score);
 
     /**
@@ -47,11 +47,11 @@ public interface StudentMapper {
     @MapKey("name")
     List<Map<String, Object>> countStudentDegreeData();
 
-    @Select("select c.name cname , count(s.id) scount from cls c left join stu s " +
-            "on s.clazz_id = c.id group by c.name order by count(s.id) desc ")
     /**
      * Counts students grouped by class.
      */
+    @Select("select c.name cname , count(s.id) scount from cls c left join stu s " +
+            "on s.clazz_id = c.id group by c.name order by count(s.id) desc ")
     List<Map<String, Object>> getStudentCount();
 
     /**

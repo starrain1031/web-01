@@ -2,8 +2,6 @@ package org.starry.webmanagement.pojo;
 
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
  * Unified API response wrapper.
  */

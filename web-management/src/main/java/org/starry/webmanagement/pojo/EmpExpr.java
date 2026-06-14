@@ -5,9 +5,6 @@ import lombok.Data;
 import java.time.LocalDate;
 
 /**
- * working experience
- */
-/**
  * Employee work experience entity.
  */
 @Data

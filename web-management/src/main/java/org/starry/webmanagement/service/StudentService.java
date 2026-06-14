@@ -1,11 +1,9 @@
 package org.starry.webmanagement.service;
 
-import org.springframework.web.multipart.MultipartFile;
 import org.starry.webmanagement.pojo.PageResult;
 import org.starry.webmanagement.pojo.Student;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Service contract for student management operations.
